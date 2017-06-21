@@ -9,7 +9,6 @@ User = get_user_model()
 class Post(models.Model):
     author = models.ForeignKey(User)
     photo = models.ImageField(upload_to='post', blank=True)
-    comment = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
     like_users = models.ManyToManyField(
@@ -24,6 +23,7 @@ class PostLike(models.Model):
     user = models.ForeignKey(User)
     created_date = models.DateTimeField(auto_now_add=True)
 
+
 class Comment(models.Model):
     post = models.ForeignKey(Post)
     author = models.ForeignKey(User)
@@ -32,14 +32,16 @@ class Comment(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     like_users = models.ManyToManyField(
         User,
-        related_name='like_comments',
+        related_name='like_comment',
         through='CommentLike'
     )
+
 
 class CommentLike(models.Model):
     comment = models.ForeignKey(Comment)
     user = models.ForeignKey(User)
     created_date = models.DateTimeField(auto_now_add=True)
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
