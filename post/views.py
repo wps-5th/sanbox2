@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from post.models import Post
@@ -11,3 +11,8 @@ def post_list(request):
     }
     return render(request, 'post_list.html', context)
 
+def post_delete(request, post_pk):
+    if request.method == 'POST':
+        form = Post.objects.get(pk=post_pk)
+        form.delete()
+        return redirect('post_list')
