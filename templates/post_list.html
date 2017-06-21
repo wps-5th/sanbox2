@@ -8,7 +8,7 @@
 
 {% for post in posts %}
     <img src="{{ post.photo.url }}" alt="">
-    <form action="{% url 'post_delete' post_pk=post.pk %}" method="POST">
+    <form action="{% url 'post:post_delete' post_pk=post.pk %}" method="POST">
 
     {% csrf_token %}
         <button type="submit">삭제</button>

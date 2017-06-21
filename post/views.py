@@ -16,12 +16,12 @@ def post_delete(request, post_pk):
     if request.method == 'POST':
         form = Post.objects.get(pk=post_pk)
         form.delete()
-        return redirect('post_list')
+        return redirect('post:post_list')
 
 
 def post_detail(request, post_pk):
     posts = Post.objects.get(pk=post_pk)
     context = {
-        'post':posts,
+        'post': posts,
     }
     return render(request, 'post_detail.html', context)
