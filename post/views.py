@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from post.models import Post
+from .models import Post
 
 
 def post_list(request):
@@ -20,8 +20,13 @@ def post_delete(request, post_pk):
 
 
 def post_detail(request, post_pk):
-    posts = Post.objects.get(pk=post_pk)
+    try:
+        post = Post.objects.get(pk=post_pk)
+
+    except Post.DoesNotExist as e:
+        return redirect('post:post_list')
+
     context = {
-        'post': posts,
+        'post': post,
     }
     return render(request, 'post_detail.html', context)

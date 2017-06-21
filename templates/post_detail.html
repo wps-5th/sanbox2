@@ -1,17 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{{ post.author }}
-<p><img src="{{ post.photo.url }}" alt=""></p>
-{{ post.created_date }}
+{% extends 'base.html' %}
 
-<form action="{% url 'post:post_delete' post_pk=post.pk %}" method="post">
-    {% csrf_token %}
-    <button type="submit">삭제</button>
+{% block content %}
+
+    <p>{{ post.author }}</p>
+<img src="{{ post.photo.url }}" alt="">
+    <p>{{ post.created_date }}</p>
+    <p>{{ post.like_count }}</p>
+
+
+    {% if post.comment_set.all %}
+        {% for comment in post.comment_set.all %}
+
+            <form action="{% url 'post:post_delete' post_pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            <p>{{ comment.author }}</p>
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.create_date }}</p>
+
+
+            {% endfor %}
+        {% else %}
+        <p>댓글이 없습니다</p>
+    {% endif %}
+<button type="submit">삭제</button>
 </form>
-</body>
-</html>
+
+{% endblock %}
