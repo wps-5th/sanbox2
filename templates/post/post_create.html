@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <input type="text" name="comment" placeholder="댓글">
+        <input type="file" name="file">
+        <button type="submit">등록</button>
+    </form>
+
+
+    {{ post }}
+
+
+{% endblock %}

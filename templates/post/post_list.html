@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<a href="{% url 'post:post_create' %}">
+    <button>create</button>
+</a>
+<a href="{% url 'login' %}">
+    <button>login</button>
+</a>
+
+    {% for post in posts %}
+        <div><img src="{{ post.photo.url }}" alt="" width="250"></div>
+        {{ post.created_date }}
+        작성자 : {{ post.author }}
+        <form action="{% url 'post:post_delete' post_pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">삭제</button>
+        </form>
+    {% endfor %}
+
+
+{% endblock %}
